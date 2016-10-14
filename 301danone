@@ -1,0 +1,172 @@
+#!/usr/bin/python
+# -*- coding: utf-8 -*-
+
+import sys
+import re
+
+def tri_selection(tab) :
+    count = 0
+    for i in range(0,len(tab)) :
+        m = i
+        for j in range(i+1,len(tab)) :
+            count = count + 1
+            if tab[j] < tab[m] :
+                m = j
+        if m != i :            
+            tab[i], tab[m] = tab[m], tab[i]
+    if count > 1 :
+        print "tri par sélection : %d comparaisons" % count
+    else:
+        print "tri par sélection : %d comparaison" % count
+
+def tri_insertion(tab) :
+    count = 0
+    for i in range(1, len(tab)) :
+        tmp = tab[i]
+        j = i
+        count = count + 1
+        while j > 0 and tab[j-1] > tmp :
+            tab[j] = tab[j-1]
+            count = count + 1
+            j = j - 1
+        tab[j] = tmp
+    if count > 1 :
+        print "tri par insertion : %d comparaisons" % count
+    else:
+        print "tri par insertion : %d comparaison" % count
+
+def tri_bulles(tab) :
+    count = 0
+    for i in range(len(tab)-1, 0, -1) :
+        for j in range(i) :
+            if tab[j] > tab[j+1] :
+                tab[j], tab[j+1] = tab[j+1], tab[j]
+            count = count + 1
+    if count > 1:
+        print "tri à bulles : %d comparaisons" % count
+    else:
+        print "tri à bulles : %d comparaison" % count
+
+def mergeSort(alist):
+    global count_it
+    if len(alist)>1:
+        mid = len(alist)//2
+        lefthalf = alist[:mid]
+        righthalf = alist[mid:]
+        mergeSort(lefthalf)
+        mergeSort(righthalf)
+        i=0
+        j=0
+        k=0
+        while i < len(lefthalf) and j < len(righthalf):
+            count_it += 1
+            if lefthalf[i] < righthalf[j]:
+                alist[k]=lefthalf[i]
+                i=i+1
+            else:
+                alist[k]=righthalf[j]
+                j=j+1
+            k=k+1
+
+        while i < len(lefthalf):
+            alist[k]=lefthalf[i]
+            i=i+1
+            k=k+1
+
+        while j < len(righthalf):
+            alist[k]=righthalf[j]
+            j=j+1
+            k=k+1
+
+def tri_rapide(tab):
+    global count_sort
+    less = []
+    pivotList = []
+    more = []
+    if len(tab) <= 1:
+        return tab
+    else:
+        pivot = tab[0]
+        for i in tab:
+            if i < pivot:
+                count_sort+=1
+                less.append(i)
+            elif i > pivot:
+                count_sort+=1
+                more.append(i)
+            else:
+                pivotList.append(i)
+        less = tri_rapide(less)
+        more = tri_rapide(more)
+        return less + pivotList + more
+
+
+#GESTION DERREUR
+
+if len(sys.argv) == 2 :
+    f = open(sys.argv[1], "r")
+else:
+    sys.stderr.write("\033[1;31mUsage: ./301danone file\n\033[0m")
+    exit(1)
+
+#PARSING 
+
+pars = []
+myList = []
+
+for line in f :
+    pars.extend(line.replace(';',' ').replace('-',' ').replace(',','.').split())
+
+try:
+    for n in pars :
+        myList.append(float(n))
+except: 
+    sys.stderr.write("\033[1;31mError in file [")
+    sys.stderr.write(sys.argv[1])
+    sys.stderr.write("] : ")
+    sys.stderr.write(n)
+    sys.stderr.write(" is not a number\033[0m\n")
+    exit(1)
+
+#DECLARATION DES TABLEAUX
+
+tab = list(myList)
+tab2 = list(myList)
+tab3 = list(myList)
+tab4 = list(myList)
+tab5 = list(myList)
+
+#AFFICHAGE DU NOMBRE DE NOMBRES  A TRIERS
+
+if len(pars) > 1:
+    print "%d éléments" % (len(pars))
+else:
+    print "%d élément" % (len(pars))
+
+#APPEL AU FONCTIONS DE TRI
+
+tri_selection(tab)
+
+tri_insertion(tab2)
+
+tri_bulles(tab3)
+
+count_it = 0
+
+mergeSort(tab4)
+
+if count_it > 1 :
+    print "tri fusion : %d comparaisons" % count_it
+else:
+    print "tri fusion : %d comparaison" % count_it
+
+count_sort = 0
+
+tab5 = tri_rapide(tab5)
+
+if count_sort > 1 :
+    print "tri rapide : %d comparaisons" % count_sort
+else:
+    print "tri rapide : %d comparaison" % count_sort
+
+exit(0)

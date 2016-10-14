@@ -11,7 +11,12 @@ Les algorithmes concernés sont les suivants :
 - tri rapide (quicksort)
 - tri fusion (merge sort)
 
+![image2](https://cloud.githubusercontent.com/assets/15813261/19404318/76cb5904-926d-11e6-80c1-1a546f043ad6.png)
+
 Bonus :
 
 - Gestion d'erreur explicite
 - Interface graphique en diagrame à batons
+
+![image1](https://cloud.githubusercontent.com/assets/15813261/19404319/76cd533a-926d-11e6-993e-0b504b44a68a.png)
+

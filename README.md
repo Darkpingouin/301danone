@@ -20,3 +20,7 @@ Bonus :
 
 ![image1](https://cloud.githubusercontent.com/assets/15813261/19404319/76cd533a-926d-11e6-993e-0b504b44a68a.png)
 
+#Note
+
+programme: 10,46/20 (21/46 test passés) pitch : 9/8 (avec bonus interface graphique +3pts)
+
